@@ -29,6 +29,10 @@ import moment from 'moment'
 import Vuetable from 'vuetable-2/src/components/Vuetable'
 import BulmaPagination from './BulmaPagination'
 import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
+import Vue from 'vue'
+import CustomActions from './CustomActions'
+
+Vue.component('custom-actions', CustomActions)
 
 export default {
   components: {
@@ -42,8 +46,15 @@ export default {
         tableClass: 'table is-bordered is-striped',
         ascendingIcon: 'fa fa-chevron-up',
         descendingIcon: 'fa fa-chevron-down',
+        sortHandleIcon: 'fa fa-bars',
       },
       fields: [
+        {
+          name: '__checkbox',
+          title: '#',
+          titleClass: 'has-text-centered',
+          dataClass: 'has-text-centered'
+        },
         {
           name: 'name',
           sortField: 'name'
@@ -83,6 +94,12 @@ export default {
           titleClass: 'has-text-centered',
           dataClass: 'has-text-right',
           callback: 'formatNumber'
+        },
+        {
+          name: '__component:custom-actions',
+          title: 'Actions',
+          titleClass: 'has-text-centered',
+          dataClass: 'has-text-centered',
         }
       ],
       sortOrder: [
