@@ -12,6 +12,9 @@
       :fields="fields"
       :css="css"
       pagination-path=""
+      :multi-sort="true"
+      multi-sort-key="ctrl"
+      :sort-order="sortOrder"
       @vuetable:pagination-data="onPaginationData"
     ></vuetable>
     <bulma-pagination ref="pagination"
@@ -36,32 +39,58 @@ export default {
   data () {
     return {
       css: {
-        tableClass: 'table is-bordered is-striped'
+        tableClass: 'table is-bordered is-striped',
+        ascendingIcon: 'fa fa-chevron-up',
+        descendingIcon: 'fa fa-chevron-down',
       },
       fields: [
-        'name', 'email',
+        {
+          name: 'name',
+          sortField: 'name'
+        },
+        {
+          name: 'email',
+          sortField: 'email',
+        },
+        {
+          name: 'age',
+          sortField: 'birthdate',
+          titleClass: 'has-text-centered',
+          dataClass: 'has-text-centered'
+        },
         {
           name: 'birthdate',
+          sortField: 'birthdate',
           titleClass: 'has-text-centered',
           dataClass: 'has-text-centered',
           callback: 'formatDate|DD-MM-YYYY'
         },
         {
           name: 'nickname',
+          sortField: 'nickname',
           callback: 'allcap'
         },
         {
           name: 'gender',
+          sortField: 'gender',
           titleClass: 'has-text-centered',
           dataClass: 'has-text-centered',
           callback: 'genderLabel'
         },
         {
           name: 'salary',
+          sortField: 'salary',
           titleClass: 'has-text-centered',
           dataClass: 'has-text-right',
           callback: 'formatNumber'
         }
+      ],
+      sortOrder: [
+          {
+            field: 'email',
+            sortField: 'email',
+            direction: 'asc'
+          }
       ]
     }
   },
