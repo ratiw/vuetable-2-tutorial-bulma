@@ -1,7 +1,11 @@
 <template>
   <div class="container">
     <nav class="level is-marginless">
-      <div class="level-left"></div>
+      <div class="level-left">
+        <div class="level-item">
+          <filter-bar></filter-bar>
+        </div>
+      </div>
       <div class="level-right">
         <vuetable-pagination-info ref="paginationInfo"
         ></vuetable-pagination-info>
@@ -16,6 +20,7 @@
       multi-sort-key="ctrl"
       :sort-order="sortOrder"
       detail-row-component="my-detail-row"
+      :append-params="moreParams"
       @vuetable:cell-clicked="onCellClicked"
       @vuetable:pagination-data="onPaginationData"
     ></vuetable>
@@ -32,8 +37,11 @@ import Vuetable from 'vuetable-2/src/components/Vuetable'
 import BulmaPagination from './BulmaPagination'
 import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
 import Vue from 'vue'
+import VueEvents from 'vue-events'
+Vue.use(VueEvents)
 import CustomActions from './CustomActions'
 import DetailRow from './DetailRow'
+import FilterBar from './FilterBar'
 
 Vue.component('custom-actions', CustomActions)
 Vue.component('my-detail-row', DetailRow)
@@ -42,7 +50,8 @@ export default {
   components: {
     Vuetable,
     BulmaPagination,
-    VuetablePaginationInfo
+    VuetablePaginationInfo,
+    FilterBar
   },
   data () {
     return {
@@ -112,7 +121,8 @@ export default {
             sortField: 'email',
             direction: 'asc'
           }
-      ]
+      ],
+      moreParams: {}
     }
   },
   methods: {
@@ -142,6 +152,19 @@ export default {
     onCellClicked (data, field, event) {
         console.log('cellClicked: ', field.name)
         this.$refs.vuetable.toggleDetailRow(data.id)
+    }
+  },
+  events: {
+    'filter-set' (filterText) {
+      this.moreParams = {
+        'filter': filterText
+      }
+      Vue.nextTick( () => this.$refs.vuetable.refresh())
+    },
+    'filter-reset' () {
+      this.moreParams = {}
+      this.$refs.vuetable.refresh()
+      Vue.nextTick( () => this.$refs.vuetable.refresh())
     }
   }
 }
