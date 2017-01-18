@@ -8,6 +8,8 @@
 
 <script>
 import Vuetable from 'vuetable-2/src/components/Vuetable'
+import accounting from 'accounting'
+import moment from 'moment'
 
 export default {
   components: {
@@ -23,22 +25,44 @@ export default {
         {
           name: 'birthdate',
           titleClass: 'has-text-centered',
-          dataClass: 'has-text-centered'
+          dataClass: 'has-text-centered',
+          callback: 'formatDate|DD-MM-YYYY'
         },
         {
           name: 'nickname',
+          callback: 'allcap'
         },
         {
           name: 'gender',
           titleClass: 'has-text-centered',
-          dataClass: 'has-text-centered'
+          dataClass: 'has-text-centered',
+          callback: 'genderLabel'
         },
         {
           name: 'salary',
           titleClass: 'has-text-centered',
-          dataClass: 'has-text-right'
+          dataClass: 'has-text-right',
+          callback: 'formatNumber'
         }
       ]
+    }
+  },
+  methods: {
+    allcap (value) {
+      return value.toUpperCase()
+    },
+    genderLabel (value) {
+      return value === 'M'
+        ? '<span class="tag is-primary is-medium"><span class="icon"><i class="fa fa-mars"></i></span>&nbsp;Male</span>'
+        : '<span class="tag is-danger is-medium"><span class="icon"><i class="fa fa-venus"></i></span>&nbsp;Female</span>'
+    },
+    formatNumber (value) {
+      return accounting.formatNumber(value, 2)
+    },
+    formatDate (value, fmt = 'D MMM YYYY') {
+      return (value == null)
+        ? ''
+        : moment(value, 'YYYY-MM-DD').format(fmt)
     }
   }
 }
