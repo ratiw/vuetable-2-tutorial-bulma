@@ -1,5 +1,12 @@
 <template>
   <div class="container">
+    <nav class="level is-marginless">
+      <div class="level-left"></div>
+      <div class="level-right">
+        <vuetable-pagination-info ref="paginationInfo"
+        ></vuetable-pagination-info>
+      </div>
+    </nav>
     <vuetable ref="vuetable"
       api-url="http://vuetable.ratiw.net/api/users"
       :fields="fields"
@@ -18,11 +25,13 @@ import accounting from 'accounting'
 import moment from 'moment'
 import Vuetable from 'vuetable-2/src/components/Vuetable'
 import BulmaPagination from './BulmaPagination'
+import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
 
 export default {
   components: {
     Vuetable,
-    BulmaPagination
+    BulmaPagination,
+    VuetablePaginationInfo
   },
   data () {
     return {
@@ -75,6 +84,7 @@ export default {
     },
     onPaginationData (paginationData) {
       this.$refs.pagination.setPaginationData(paginationData)
+      this.$refs.paginationInfo.setPaginationData(paginationData)
     },
     onChangePage (page) {
       this.$refs.vuetable.changePage(page)
