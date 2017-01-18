@@ -1,6 +1,6 @@
 # vuetable-2-tutorial-bulma
 
-> A Vue.js project
+> Vuetable-2 tutorial project using Bulma CSS ([bulma.io](http://bulma.io))
 
 ## Build Setup
 
