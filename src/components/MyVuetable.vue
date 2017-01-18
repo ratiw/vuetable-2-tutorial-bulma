@@ -1,19 +1,28 @@
 <template>
-  <vuetable ref="vuetable"
-    api-url="http://vuetable.ratiw.net/api/users"
-    :fields="fields"
-    :css="css"
-  ></vuetable>
+  <div class="container">
+    <vuetable ref="vuetable"
+      api-url="http://vuetable.ratiw.net/api/users"
+      :fields="fields"
+      :css="css"
+      pagination-path=""
+      @vuetable:pagination-data="onPaginationData"
+    ></vuetable>
+    <bulma-pagination ref="pagination"
+      @vuetable-pagination:change-page="onChangePage"
+    ></bulma-pagination>
+  </div>
 </template>
 
 <script>
-import Vuetable from 'vuetable-2/src/components/Vuetable'
 import accounting from 'accounting'
 import moment from 'moment'
+import Vuetable from 'vuetable-2/src/components/Vuetable'
+import BulmaPagination from './BulmaPagination'
 
 export default {
   components: {
-    Vuetable
+    Vuetable,
+    BulmaPagination
   },
   data () {
     return {
@@ -63,6 +72,12 @@ export default {
       return (value == null)
         ? ''
         : moment(value, 'YYYY-MM-DD').format(fmt)
+    },
+    onPaginationData (paginationData) {
+      this.$refs.pagination.setPaginationData(paginationData)
+    },
+    onChangePage (page) {
+      this.$refs.vuetable.changePage(page)
     }
   }
 }
