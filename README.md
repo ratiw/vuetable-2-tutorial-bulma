@@ -1,6 +1,6 @@
 # vuetable-2-tutorial-bulma
 
-> Vuetable-2 tutorial project using Bulma CSS ([bulma.io](http://bulma.io))
+> Vuetable-2 [tutorial](https://github.com/ratiw/vuetable-2-tutorial/tree/master/doc) project using Bulma CSS ([bulma.io](http://bulma.io))
 
 This project also contains [`BulmaPagination`](https://github.com/ratiw/vuetable-2-tutorial-bulma/blob/master/src/components/BulmaPagination.vue), built using [`VuetablePaginationMixin`](https://github.com/ratiw/vuetable-2/blob/master/src/components/VuetablePaginationMixin.vue).
 
